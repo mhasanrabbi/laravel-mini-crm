@@ -8,7 +8,7 @@
         </a>
     </li>
 
-    @hasrole('admin')
+    @can('manage users')
     <li class="nav-item">
         <a class="nav-link" href="{{ route('users.index') }}">
             <svg class="nav-icon">
@@ -17,7 +17,7 @@
             {{ __('Users') }}
         </a>
     </li>
-    @endhasrole
+    @endcan
 
 
     <li class="nav-item">
