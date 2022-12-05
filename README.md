@@ -15,7 +15,7 @@
 
 
 ## Preview
-![enter image description here](https://raw.githubusercontent.com/mhasanrabbi/images-repo/main/crm.png?token=GHSAT0AAAAAABY6VCHBFU6EHNUBZRGT3SU6Y4M34GA)
+![User](https://www.mahmudrabbi.com/images-repo/crm.png)
 
 ## *Installation*
 

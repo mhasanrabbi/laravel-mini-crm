@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,8 @@ Route::middleware('auth')->group(function () {
         Route::post('users/trash/{id}/restore', [UserController::class, 'trashRestore'])->name('users.trash.restore');
         Route::delete('users/trash/{id}/delete', [UserController::class, 'trashDestroy'])->name('users.trash.destroy');
     });
+
+    Route::resource('clients', ClientController::class);
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
