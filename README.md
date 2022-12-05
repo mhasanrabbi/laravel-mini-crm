@@ -8,7 +8,10 @@
 |Route Model Binding| [UserController](https://github.com/mhasanrabbi/laravel-mini-crm/blob/7cf3fa2e169f1b443acbb2f4e88537384490ece8/routes/web.php#L18) |
 |Route Redirect|[web.php](https://github.com/mhasanrabbi/laravel-mini-crm/blob/7cf3fa2e169f1b443acbb2f4e88537384490ece8/routes/web.php#L9)|
 |Database Seeder and Factories|[factories](https://github.com/mhasanrabbi/laravel-mini-crm/tree/develop/database/factories) <br> [seeders](https://github.com/mhasanrabbi/laravel-mini-crm/tree/develop/database/seeders)|
+|Soft Delete| [UserController](https://github.com/mhasanrabbi/laravel-mini-crm/blob/3dfb9fe63938ebdfb963d2374da22cfb08c2bcb9/app/Http/Controllers/UserController.php#L124)|
 |Eloquent Query Scopes| [search](https://github.com/mhasanrabbi/laravel-mini-crm/blob/7cf3fa2e169f1b443acbb2f4e88537384490ece8/app/Models/User.php#L27) |
+|Eloquent Accessors and Mutators|[User.php](https://github.com/mhasanrabbi/laravel-mini-crm/blob/3dfb9fe63938ebdfb963d2374da22cfb08c2bcb9/app/Models/User.php#L57) <br>|
+|||
 
 
 ## Preview
