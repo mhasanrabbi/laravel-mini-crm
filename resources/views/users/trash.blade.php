@@ -14,14 +14,10 @@
 
 <div class="row">
     <div class="col mb-2">
-
-        <a class="btn btn-primary ml-2" href="{{route('users.create')}}" role="button">Create User</a>
-
-        <a class="btn btn-secondary" href="{{route('users.trash')}}" role="button">Trash</a>
-
+        <a class="btn btn-primary" href="{{route('users.index')}}" role="button">Back</a>
     </div>
     <div class="col-auto mb-2">
-        <form action="{{route('users.index')}}">
+        <form action="{{route('users.trash')}}">
             <div class="input-group">
                 <input type="search" placeholder="Search users" class="form-control" name="search">
                 <button type="submit" class="btn btn-sm btn-info">Search</button>
@@ -43,7 +39,8 @@
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th>Role</th>
-                    <th>Action</th>
+                    <th>Restore</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,19 +54,24 @@
                         @endforeach
                     </td>
                     <td>
-                        <form action="{{ route('users.destroy', ['user' => $user->id])}}" method="POST">
-                            <a href="{{ route('users.edit', ['user' => $user->id])}}"
-                                class="btn btn-success btn-sm">Edit</a>
-
+                        <form action="{{ route('users.trash.restore', $user->id)}}" method="POST">
+                            @csrf
+                            <button onclick="return confirm('Are you sure')" type="submit"
+                                class="btn btn-success btn-sm">
+                                Restore
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ route('users.trash.destroy',  $user->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button onclick="return confirm('Are you sure')" type="submit"
                                 class="btn btn-danger btn-sm">
-                                Remove
+                                Delete
                             </button>
                         </form>
                     </td>
-
                 </tr>
                 @endforeach
             </tbody>

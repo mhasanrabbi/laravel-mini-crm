@@ -55,7 +55,7 @@ $ php artisan migrate --seed
 $ php artisan serve
 ```
 
-### Login with Admin
+### Login as Admin
 
 email: `admin@admin.com` 
 password: `password` 

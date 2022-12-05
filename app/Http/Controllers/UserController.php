@@ -43,9 +43,6 @@ class UserController extends Controller
     {
         $formData = $request->all();
 
-        // Hash Password
-        $formData['password'] = Hash::make('password');
-
         $user = User::create($formData);
 
         if ($user->assignRole('user')) {
@@ -118,5 +115,41 @@ class UserController extends Controller
         }
 
         return redirect()->route('users.index');
+    }
+
+    /**
+     * Soft Delete User
+     */
+
+    public function trash()
+    {
+        $users = User::onlyTrashed()->latest()->filter(request(['search']))->paginate(10);
+
+        return view('users.trash', compact('users'));
+    }
+
+    /**
+     * Restore Trash Items
+     * @param int $id
+     */
+
+    public function trashRestore($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore($id);
+        return redirect()->route('users.trash')->with(['message' => 'User Restored Successfully']);
+    }
+
+    /**
+     * Trash Destroy
+     * @param int $id
+     *
+     */
+
+    public function trashDestroy($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->forceDelete($id);
+        return redirect()->route('users.trash')->with(['message' => 'User deleted successfully']);
     }
 }
