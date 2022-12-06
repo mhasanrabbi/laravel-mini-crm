@@ -37,7 +37,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('tasks.index')}}">
             <svg class="nav-icon">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-list-high-priority') }}"></use>
             </svg>
