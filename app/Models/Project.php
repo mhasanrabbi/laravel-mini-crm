@@ -32,8 +32,18 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function assignUser()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
     }
 }

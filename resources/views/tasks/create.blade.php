@@ -14,6 +14,44 @@
         <form action="{{ route('tasks.store') }}" method="POST">
             @csrf
             <div class="mb-3">
+                <label for="client_id" class="form-label">Client</label>
+                <select class="form-control" name="client_id" id="name">
+                    @foreach($clients as $client)
+                    <option value="{{ $client->id }}" {{ old('client_id')==$client->id ? 'selected' : ''}}>
+                        {{ $client->company_name }}
+                    </option>
+                    @endforeach
+                </select>
+                @error('client_id')
+                <p class="text-danger">{{$message}} </p>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="client_id" class="form-label">Project</label>
+                <select class="form-control" name="project_id" id="project_id">
+                    <option value="" selected>---Choose Project---</option>
+                    @foreach($projects as $project)
+                    <option value="{{ $project->id }}" {{ old('project_id')==$project->id ? 'selected' : ''}}>
+                        {{ $project->title }}
+                    </option>
+                    @endforeach
+                </select>
+                @error('client_id')
+                <p class="text-danger">{{$message}} </p>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="user_id" class="form-label">Assign User</label>
+                <select class="form-control" name="user_id" id="user_id">
+
+                </select>
+                @error('user_id')
+                <p class="text-danger">{{$message}} </p>
+                @enderror
+            </div>
+            <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" name="title" class="form-control" id="name" aria-describedby="name"
                     value="{{old('title')}}">
@@ -24,7 +62,8 @@
 
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea  name="description" class="form-control" id="name" aria-describedby="name" placeholder="Write Here...">{{old('description')}}</textarea>
+                <textarea name="description" class="form-control" id="name" aria-describedby="name"
+                    placeholder="Write Here...">{{old('description')}}</textarea>
                 @error('description')
                 <p class="text-danger">{{$message}} </p>
                 @enderror
@@ -39,54 +78,17 @@
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="user_id" class="form-label">Assign User</label>
-                    <select class="form-control" name="user_id" id="name">
-                        @foreach($users as $user)
-                        <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : ''}}>
-                        {{ $user->name}}
-                        </option>
-                        @endforeach
-                    </select>
-                @error('user_id')
-                <p class="text-danger">{{$message}} </p>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="client_id" class="form-label">Client</label>
-                    <select class="form-control" name="client_id" id="name">
-                        @foreach($clients as $client)
-                        <option value="{{ $client->id }}" {{ old('client_id') == $client->id ? 'selected' : ''}}>
-                        {{ $client->company_name }}
-                        </option>
-                        @endforeach
-                    </select>
-                @error('client_id')
-                <p class="text-danger">{{$message}} </p>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="client_id" class="form-label">Project</label>
-                    <select class="form-control" name="project_id" id="name">
-                        @foreach($projects as $project)
-                        <option value="{{ $project->id }}" {{ old('project_id') == $project->id ? 'selected' : ''}}>
-                        {{ $project->title }}
-                        </option>
-                        @endforeach
-                    </select>
-                @error('client_id')
-                <p class="text-danger">{{$message}} </p>
-                @enderror
-            </div>
+
+
             <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
-                    <select class="form-control" name="status" id="name">
-                        @foreach(App\Models\Project::STATUS  as $status)
-                        <option value="{{ $status }}" {{ old('status') == $status ? 'selected' : ''}}>
+                <select class="form-control" name="status" id="name">
+                    @foreach(App\Models\Project::STATUS as $status)
+                    <option value="{{ $status }}" {{ old('status')==$status ? 'selected' : '' }}>
                         {{ $status}}
-                        </option>
-                        @endforeach
-                    </select>
+                    </option>
+                    @endforeach
+                </select>
                 @error('status')
                 <p class="text-danger">{{$message}} </p>
                 @enderror
@@ -99,5 +101,33 @@
         </form>
     </div>
 </div>
+
+<script type="text/javascript">
+    $("select#project_id").change(function() {
+        var project_id = $(this).children("option:selected").val();
+        loadData(project_id);
+    });
+
+    function loadData(project_id) {
+        $.ajax({
+            url : '/get_assign_user',
+            type : 'GET',
+            data : {
+                'project_id' : project_id
+            },
+            dataType:'html',
+            success : function(response) {
+                $("#user_id").html(response);
+                console.log(respone);
+            },
+            error : function(request,error)
+            {
+                console.log("Error");
+            }
+        });
+    }
+
+
+</script>
 
 @endsection

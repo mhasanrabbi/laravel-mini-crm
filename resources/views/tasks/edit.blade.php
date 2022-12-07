@@ -13,6 +13,49 @@
         <form action="{{ route('tasks.update', $task->id) }}" method="POST">
             @csrf
             @method('PUT')
+
+
+            <div class="mb-3">
+                <label for="client_id" class="form-label">Client</label>
+                    <select class="form-control" name="client_id" id="name">
+                        @foreach($clients as $client)
+                        <option value="{{ $client->id }}" {{ $client->id == $task->client_id ? 'selected' : ''}}>
+                        {{ $client->company_name }}
+                        </option>
+                        @endforeach
+                    </select>
+                @error('client_id')
+                <p class="text-danger">{{$message}} </p>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="client_id" class="form-label">Project</label>
+                    <select class="form-control" name="project_id" id="name">
+                        @foreach($projects as $project)
+                        <option value="{{ $project->id }}" {{ $project->id == $task->project_id ? 'selected' : ''}}>
+                        {{ $project->title }}
+                        </option>
+                        @endforeach
+                    </select>
+                @error('client_id')
+                <p class="text-danger">{{$message}} </p>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="user_id" class="form-label">Assign User</label>
+                    <select class="form-control" name="user_id" id="name">
+                        @foreach($users as $user)
+                        <option value="{{ $user->id }}"
+                            {{ $user->id == $task->user_id ? 'selected' : ''}}
+                            >
+                        {{ $user->name}}
+                        </option>
+                        @endforeach
+                    </select>
+                @error('user_id')
+                <p class="text-danger">{{$message}} </p>
+                @enderror
+            </div>
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" name="title" class="form-control" id="name" aria-describedby="name"
@@ -38,47 +81,7 @@
                 <p class="text-danger">{{$message}} </p>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="user_id" class="form-label">Assign User</label>
-                    <select class="form-control" name="user_id" id="name">
-                        @foreach($users as $user)
-                        <option value="{{ $user->id }}"
-                            {{ $user->id == $task->user_id ? 'selected' : ''}}
-                            >
-                        {{ $user->name}}
-                        </option>
-                        @endforeach
-                    </select>
-                @error('user_id')
-                <p class="text-danger">{{$message}} </p>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="client_id" class="form-label">Project</label>
-                    <select class="form-control" name="project_id" id="name">
-                        @foreach($projects as $project)
-                        <option value="{{ $project->id }}" {{ $project->id == $task->project_id ? 'selected' : ''}}>
-                        {{ $project->title }}
-                        </option>
-                        @endforeach
-                    </select>
-                @error('client_id')
-                <p class="text-danger">{{$message}} </p>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="client_id" class="form-label">Client</label>
-                    <select class="form-control" name="client_id" id="name">
-                        @foreach($clients as $client)
-                        <option value="{{ $client->id }}" {{ $client->id == $task->client_id ? 'selected' : ''}}>
-                        {{ $client->company_name }}
-                        </option>
-                        @endforeach
-                    </select>
-                @error('client_id')
-                <p class="text-danger">{{$message}} </p>
-                @enderror
-            </div>
+
             <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                     <select class="form-control" name="status" id="name">

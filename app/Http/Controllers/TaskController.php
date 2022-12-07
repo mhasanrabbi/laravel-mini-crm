@@ -109,4 +109,25 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index');
     }
+
+    public function getAssignUser(Request $request)
+    {
+
+        $project_id = $request->project_id;
+
+        $assigned_users = Project::with('assignUser')->where('id', $project_id)->get();
+
+        // foreach ($assigned_users as $users) {
+        //     // dd($users);
+        //     $data['name'] = $users->assignUser->name;
+        //     $data['id'] = $users->assignUser->id;
+
+        //     $datas[] = $data;
+        // }
+
+        // return response()->json(['response' => $datas]);
+        // return json_encode(['response' => $datas]);
+
+        return view('tasks.assignUserList', compact('assigned_users'));
+    }
 }
