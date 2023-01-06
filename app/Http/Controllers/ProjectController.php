@@ -124,9 +124,27 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(Request $request, Project $project)
     {
-        $project->update($request->validated());
+
+        // dd($request);
+        $formRequest = $request->validate(
+            [
+                'title' => ['required'],
+                'description' => ['required'],
+                'deadline' => ['required', 'date'],
+                'user_id' => ['array'],
+                'client_id' => ['required', 'exists:clients,id'],
+                'status' => ['required'],
+            ]
+        );
+
+        // $project->fill($formRequest);
+        $project->save();
+        // unset($formRequest['user_id']);
+
+        $project->user()->sync($formRequest['user_id']);
+        // $project->update($formRequest);
 
         return redirect()->route('projects.index');
     }

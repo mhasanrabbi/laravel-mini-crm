@@ -14,8 +14,8 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <label for="user_id[]" class="form-label">Assign User</label>
-                <select class="form-multi-select" name="user_id[]" id="user_id" multiple>
+                <label for="user_id" class="form-label">Assign User</label>
+                <select name="user_id[]" class="form-multi-select" multiple data-coreui-search="true" required>
                         @foreach($users as $user)
                         {{-- {{dd(old($user->id))}} --}}
                         <option value="{{ $user->id }}" {{ in_array($user->id, $project->user->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $user->name }}</option>

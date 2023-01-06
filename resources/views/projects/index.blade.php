@@ -39,13 +39,13 @@
             <thead>
                 <tr>
                     <th>Title</th>
-                    <th>Assigned To</th>
+                    <th >Assigned To</th>
                     <th>Client</th>
                     <th>Deadline</th>
                     <th>Status</th>
-                    <th></th>
                     @can('delete')
-                    <th></th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                     @endcan
                 </tr>
             </thead>
@@ -55,15 +55,20 @@
                 {{-- {{dd($project)}} --}}
                 <tr>
                     <td>{{ $project->title }}</td>
-                    @foreach($project->user as $user)
                     {{-- {{dd($user)}} --}}
-                    <td>{{ $user->name }}</td>
-                    @endforeach
-                    {{-- <td>{{ $project->client->company_name }}</td> --}}
+                    <td >
+                        @foreach($project->user as $user)
+                        <ul class="list-group horizontal">
+                            <li class="list-group-item">
+                                {{ $user->name }}
+                            </li>
+                        </ul>
+                        @endforeach
+                    </td>
+                    <td>{{ $project->client->company_name }}</td>
                     <td>{{ $project->deadline }}</td>
                     <td>{{ $project->status }}</td>
                     <td>
-                        <a href="{{ route('projects.show', $project)}}" class="btn btn-success btn-sm">View</a>
                         <a href="{{ route('projects.edit', $project)}}" class="btn btn-success btn-sm">Edit</a>
                     </td>
                     @can('delete')
