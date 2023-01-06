@@ -9,6 +9,13 @@
     <title>{{ config('app.name', 'Mini CRM') }}</title>
     <meta name="theme-color" content="#ffffff">
     @vite('resources/sass/app.scss')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@4.4.2/dist/css/coreui.min.css" rel="stylesheet" integrity="sha384-bzkAC/Q2gW5/slRL3Jgj3JsccUWhLg6Rz8kyA0B/9Yv1Ed34/b5NrdYqFIkokjId" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@4.4.2/dist/js/coreui.bundle.min.js" integrity="sha384-3EHk1T8EEnpl9A4dz453T47zxkVMJyHEsXmDWS0rOjvrBOJHCpPvdbm/EoAhsNnb" crossorigin="anonymous"></script>
+
+
 </head>
 
 <body>
@@ -82,6 +89,8 @@
         </footer>
     </div>
     <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
+
+    @yield('scripts')
 
 </body>
 

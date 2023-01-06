@@ -10,12 +10,12 @@
 |Database Seeder and Factories|[factories](https://github.com/mhasanrabbi/laravel-mini-crm/tree/develop/database/factories) <br> [seeders](https://github.com/mhasanrabbi/laravel-mini-crm/tree/develop/database/seeders)|
 |Soft Delete| [UserController](https://github.com/mhasanrabbi/laravel-mini-crm/blob/3dfb9fe63938ebdfb963d2374da22cfb08c2bcb9/app/Http/Controllers/UserController.php#L124)|
 |Eloquent Query Scopes| [search](https://github.com/mhasanrabbi/laravel-mini-crm/blob/7cf3fa2e169f1b443acbb2f4e88537384490ece8/app/Models/User.php#L27) |
-|Eloquent Accessors and Mutators|[User.php](https://github.com/mhasanrabbi/laravel-mini-crm/blob/3dfb9fe63938ebdfb963d2374da22cfb08c2bcb9/app/Models/User.php#L57) <br>|
-|||
+|Eloquent Accessors and Mutators|[User.php](https://github.com/mhasanrabbi/laravel-mini-crm/blob/3dfb9fe63938ebdfb963d2374da22cfb08c2bcb9/app/Models/User.php#L57) <br> [Client.php](https://github.com/mhasanrabbi/laravel-mini-crm/blob/03c54f7f93baed1f50772fe1b990cd1c7a1e7f1a/app/Models/Client.php#L38)|
+|Eloquent manyTomany between <br> projects and users <br> project have multiple users|[project_user Pivot Table](https://github.com/mhasanrabbi/laravel-mini-crm/blob/develop/database/migrations/2023_01_04_213648_create_project_users_table.php)|
 
 
 ## Preview
-![enter image description here](https://raw.githubusercontent.com/mhasanrabbi/images-repo/main/crm.png?token=GHSAT0AAAAAABY6VCHBFU6EHNUBZRGT3SU6Y4M34GA)
+![Userhere](https://www.mahmudrabbi.com/images-repo/crm.png)
 
 ## *Installation*
 

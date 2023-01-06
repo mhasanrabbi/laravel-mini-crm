@@ -21,7 +21,7 @@
 
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('about') }}">
+        <a class="nav-link" href="{{ route('clients.index') }}">
             <svg class="nav-icon">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-people') }}"></use>
             </svg>
@@ -29,7 +29,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('projects.index')}}">
             <svg class="nav-icon">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-paperclip') }}"></use>
             </svg>
@@ -37,7 +37,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('tasks.index')}}">
             <svg class="nav-icon">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-list-high-priority') }}"></use>
             </svg>
