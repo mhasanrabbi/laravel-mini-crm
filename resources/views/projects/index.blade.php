@@ -50,11 +50,16 @@
                 </tr>
             </thead>
             <tbody>
+
                 @foreach($projects as $project)
+                {{-- {{dd($project)}} --}}
                 <tr>
                     <td>{{ $project->title }}</td>
-                    <td>{{ $project->user->name }}</td>
-                    <td>{{ $project->client->company_name }}</td>
+                    @foreach($project->user as $user)
+                    {{-- {{dd($user)}} --}}
+                    <td>{{ $user->name }}</td>
+                    @endforeach
+                    {{-- <td>{{ $project->client->company_name }}</td> --}}
                     <td>{{ $project->deadline }}</td>
                     <td>{{ $project->status }}</td>
                     <td>

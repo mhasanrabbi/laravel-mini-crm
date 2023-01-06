@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Client;
 use App\Models\Project;
+use Illuminate\Http\Request;
+use GuzzleHttp\Handler\Proxy;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
-use App\Models\Client;
-use App\Models\User;
 
 class ProjectController extends Controller
 {
@@ -18,6 +20,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::with(['user', 'client'])->latest()->filter(request(['search']))->paginate(10);
+        // dd($projects);
 
         return view('projects.index', compact('projects'));
     }
@@ -41,9 +44,48 @@ class ProjectController extends Controller
      * @param  \App\Http\Requests\StoreProjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProjectRequest $request)
+    public function store(Request $request)
     {
-        Project::create($request->validated());
+        // dd($request->all());
+
+
+        $formRequest = $request->validate(
+            [
+                'title' => ['required'],
+                'description' => ['required'],
+                'deadline' => ['required', 'date'],
+                'user_id.*' => ['required', 'exists:users,id'],
+                'client_id' => ['required', 'exists:clients,id'],
+                'status' => ['required'],
+            ]
+        );
+
+        // dd($formRequest['user_id']);
+
+        // $project = Project::create($formRequest);
+
+        // dd($formRequest);
+
+        unset($formRequest['user_id']);
+
+        $project = new Project();
+
+        $project->fill($formRequest);
+
+        $project->save();
+
+
+        // $project = $request->validated();
+        // $project->save();
+        // $project = Project::save()->$request->validated();
+
+        $project->user()->attach($request->user_id);
+
+
+        // $user = User::find(1);
+
+
+        // $project->user()->attach($request->id);
 
         return redirect()->route('projects.index');
     }

@@ -27,7 +27,7 @@ class UpdateProjectRequest extends FormRequest
             'title' => ['required'],
             'description' => ['required'],
             'deadline' => ['required', 'date'],
-            'user_id' => ['required', 'exists:users,id'],
+            'user_id.*' => ['required', 'exists:users,id', 'array'],
             'client_id' => ['required', 'exists:clients,id'],
             'status' => ['required'],
         ];

@@ -12,7 +12,6 @@ class Project extends Model
     protected $fillable = [
         'title',
         'description',
-        'user_id',
         'client_id',
         'deadline',
         'status'
@@ -29,7 +28,7 @@ class Project extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'project_users', 'project_id', 'user_id');
     }
 
     public function assignUser()

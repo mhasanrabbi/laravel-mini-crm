@@ -27,7 +27,7 @@ class StoreProjectRequest extends FormRequest
             'title' => ['required'],
             'description' => ['required'],
             'deadline' => ['required', 'date'],
-            'user_id' => ['required', 'exists:users,id'],
+            'user_id.*' => ['required', 'exists:users,id'],
             'client_id' => ['required', 'exists:clients,id'],
             'status' => ['required'],
         ];
