@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::resource('tasks', TaskController::class);
 
+
+    Route::post('/get-project', [TaskController::class, 'getProject']);
     Route::get('get_assign_user', [TaskController::class, 'getAssignUser']);
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');

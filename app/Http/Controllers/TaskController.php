@@ -24,6 +24,13 @@ class TaskController extends Controller
         return view('tasks.index', compact('tasks'));
     }
 
+    public function getProject(Request $request)
+    {
+        $projects = Project::select('title', 'id')->where('client_id', $request->client_id)->get();
+
+        return response()->json($projects);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -31,6 +38,8 @@ class TaskController extends Controller
      */
     public function create()
     {
+        // dd(Project::with('client')->get());
+
         $data['users'] = User::select('id', 'name')->role('user')->orderBy('name', 'asc')->get();
         $data['clients'] = Client::select('id', 'company_name')->orderBy('company_name', 'asc')->get();
         $data['projects'] = Project::select('id', 'title')->orderBy('title', 'asc')->get();
