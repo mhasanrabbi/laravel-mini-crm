@@ -15,7 +15,7 @@
             @csrf
             <div class="mb-3">
                 <label for="client_id" class="form-label">Client</label>
-                <select class="form-control" name="client_id" id="name">
+                <select class="form-control" name="client_id" id="client">
                     @foreach($clients as $client)
                     <option value="{{ $client->id }}" {{ old('client_id')==$client->id ? 'selected' : ''}}>
                         {{ $client->company_name }}
@@ -29,13 +29,13 @@
 
             <div class="mb-3">
                 <label for="client_id" class="form-label">Project</label>
-                <select class="form-control" name="project_id" id="project_id">
-                    <option value="" selected>---Choose Project---</option>
-                    @foreach($projects as $project)
+                <select class="form-control" name="project_id" id="project">
+                    <option value="" selected>---Select Project---</option>
+                    {{-- @foreach($projects as $project)
                     <option value="{{ $project->id }}" {{ old('project_id')==$project->id ? 'selected' : ''}}>
                         {{ $project->title }}
                     </option>
-                    @endforeach
+                    @endforeach --}}
                 </select>
                 @error('client_id')
                 <p class="text-danger">{{$message}} </p>
@@ -44,8 +44,8 @@
 
             <div class="mb-3">
                 <label for="user_id" class="form-label">Assign User</label>
-                <select class="form-control" name="user_id" id="user_id">
-
+                <select class="form-control" name="user_id" id="user">
+                    <option value="" selected>---Select User---</option>
                 </select>
                 @error('user_id')
                 <p class="text-danger">{{$message}} </p>
@@ -103,29 +103,82 @@
 </div>
 
 <script type="text/javascript">
-    $("select#project_id").change(function() {
-        var project_id = $(this).children("option:selected").val();
-        loadData(project_id);
+    // $("select#project_id").change(function() {
+    //     var project_id = $(this).children("option:selected").val();
+    //     loadData(project_id);
+    // });
+
+    // function loadData(project_id) {
+    //     $.ajax({
+    //         url : '/get_assign_user',
+    //         type : 'GET',
+    //         data : {
+    //             'project_id' : project_id
+    //         },
+    //         dataType:'html',
+    //         success : function(response) {
+    //             $("#user_id").html(response);
+    //             console.log(respone);
+    //         },
+    //         error : function(request,error)
+    //         {
+    //             console.log("Error");
+    //         }
+    //     });
+    // }
+
+    $(document).ready(function()
+    {
+
+        $('#client').on('change', function () {
+        var clientId = this.value;
+        console.log(clientId);
+        $("#project").html('');
+        $.ajax({
+        url: "/get-project",
+        type: "get",
+        data: {
+            client_id: clientId,
+        },
+        dataType: 'json',
+        success: function (result) {
+        var options = '';
+            $.each(result, function(index, value) {
+                options += '<option value="' + value.id + '">' + value.title + '</option>';
+            });
+            $('#project').html(options);
+        }
+    });
     });
 
-    function loadData(project_id) {
+    //get user
+
+    $('#client').on('change', function () {
+        var clientId = this.value;
+        $("#user").html('');
         $.ajax({
-            url : '/get_assign_user',
-            type : 'GET',
-            data : {
-                'project_id' : project_id
-            },
-            dataType:'html',
-            success : function(response) {
-                $("#user_id").html(response);
-                console.log(respone);
-            },
-            error : function(request,error)
-            {
-                console.log("Error");
-            }
-        });
-    }
+        url: "/project-users",
+        type: "get",
+        data: {
+            client_id: clientId,
+        },
+        dataType: 'json',
+        success: function (data) {
+        var options = '';
+        if(data.length > 0){
+            $.each(data, function(index, item){
+                $.each(item.users, function(index,value){
+                options += '<option value="' + index + '">' + value + '</option>';
+                });
+                $('#user').html(options);
+            });
+        }
+        }
+    });
+    })
+
+});
+
 
 
 </script>
