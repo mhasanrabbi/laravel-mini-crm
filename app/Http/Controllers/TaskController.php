@@ -28,7 +28,52 @@ class TaskController extends Controller
     {
         $projects = Project::select('title', 'id')->where('client_id', $request->client_id)->get();
 
+
+        // dd($projects);
+
+        // dd($users->user->get());
+
         return response()->json($projects);
+    }
+
+    public function getUser(Request $request)
+    {
+        // get users belongs to the project
+        // $projectId = request('project_id');
+
+        // dd($request->all());
+
+        $relatedUsers = Project::with('user')->select('title', 'id')->where('client_id', $request->client_id)->get();
+
+        $data = [];
+
+        foreach ($relatedUsers as $relatedUser) {
+            $data[] = [
+                'users' => $relatedUser->user->pluck('name', 'id')->toArray(),
+            ];
+        }
+
+
+        // dd($data);
+        // dd($relatedUser->title);
+        // foreach ($relatedUser->user as $user)
+        // {
+
+        // }
+
+
+
+        // dd($relatedUser->user()->get());
+        // $users = User::where('project_id', $request->project_id)->get(['name', 'id']);
+
+        // dd($users);
+        // $users = User::whereHas('project', function ($query) use ($projectId) {
+        //     $query->where('project_id', $projectId);
+        // })->get();
+
+        // return response()->json($relatedUsers);
+
+        return response()->json($data);
     }
 
     /**
@@ -38,6 +83,7 @@ class TaskController extends Controller
      */
     public function create()
     {
+        // dd(Project::with('user')->get());
         // dd(Project::with('client')->get());
 
         $data['users'] = User::select('id', 'name')->role('user')->orderBy('name', 'asc')->get();

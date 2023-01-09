@@ -12,7 +12,7 @@
     <div class="card-header">Create Projects</div>
 
     <div class="card-body">
-        <form action="{{ route('projects.store') }}" method="POST">
+        <form action="{{ route('projects.store') }}" method="POST" id="dynamic_form">
             @csrf
             <div class="form-group mb-3">
                 <label for="user_id" class="form-label">Assign User</label>
